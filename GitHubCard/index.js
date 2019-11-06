@@ -3,6 +3,23 @@
            https://api.github.com/users/<your name>
 */
 
+axios.get('https://api.github.com/users/Rodney-Race')
+  .then((results) => {
+    const dataObj = results.data;
+    const createCard = CreateCard(dataObj);
+    cards.appendChild(createCard);
+  })
+  .then(() => {
+    return axios.get('https://api.github.com/users/Rodney-Race/followers');
+  })
+  .then((result) => {
+      const dataObj = result.data;
+      dataObj.forEach((item) => {
+        const createCard = CreateCard(item);
+        cards.appendChild(createCard);
+      });
+  });
+
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
